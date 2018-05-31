@@ -62,7 +62,8 @@ module.exports = {
     "semi": [
         "error",
         "always"
-    ]
+    ],
+    'prefer-promise-reject-errors': ['error', {'allowEmptyReject': true}]
   },
   parserOptions: {
     ecmaFeatures: {

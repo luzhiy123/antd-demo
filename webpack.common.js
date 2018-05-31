@@ -4,28 +4,28 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: './src/index.js',
+        main: './src/index.js'
     },
     plugins: [
         new HtmlWebpackPlugin({
             chunks: ['vendor', 'main'],
             template: 'public/index.html',
-            filename: 'index.html',
+            filename: 'index.html'
         }),
         new ExtractTextPlugin({
             filename: (getPath) => {
                 return getPath('css/[name].[hash].css').replace('css/js', 'css');
             },
-            allChunks: true,
-        }),
+            allChunks: true
+        })
     ],
     output: {
         filename: 'js/[name].[hash].js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist')
     },
     optimization: {
         runtimeChunk: {
-            name: 'vendor',
+            name: 'vendor'
         },
         splitChunks: {
             cacheGroups: {
@@ -33,10 +33,10 @@ module.exports = {
                     test: /node_modules/,
                     name: 'vendor',
                     chunks: 'initial',
-                    minSize: 1,
-                },
-            },
-        },
+                    minSize: 1
+                }
+            }
+        }
     },
     module: {
         rules: [{
@@ -44,15 +44,15 @@ module.exports = {
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: ['css-loader', 'sass-loader'],
-                publicPath: '../',
-            }),
+                publicPath: '../'
+            })
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: 'css-loader',
-                publicPath: '../',
-            }),
+                publicPath: '../'
+            })
         },{
             test: /\.js$/,
             exclude: /node_modules/,
@@ -61,17 +61,17 @@ module.exports = {
                 options: {
                     plugins: [
                         [
-                            'import',
+                            '@babel/plugin-proposal-class-properties',
                             {
                                 'libraryName': 'antd',
                                 'libraryDirectory': 'es',
-                                'style': 'css',
-                            },
-                        ],
+                                'style': 'css'
+                            }
+                        ]
                     ],
-                    presets: ['@babel/preset-react', '@babel/preset-env'],
-                },
-            }],
-        }],
-    },
+                    presets: ['@babel/preset-react', '@babel/preset-env']
+                }
+            }]
+        }]
+    }
 };
